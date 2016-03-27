@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	*{margin:0px;padding:0px;}
+	section{width:700px;height:320px;margin:200px auto;background:#33ffcc;position:relative;overflow:hidden;}
+	section > ul li{list-style:none;width:175px;height:320px;background:#99ff33;float:left;position:relative;}
+	section > ul li div{width:100%;height:100%;background:red;position:absolute;left:175px;top:0px;}
+	section > ul li div:first-child{background:url("images/11.jpg") no-repeat;}
+	section > ul li div:nth-child(2){background:url("images/22.jpg") no-repeat;}
+	section > ul li div:nth-child(3){background:url("images/33.jpg") no-repeat;}
+	section > ul li div:last-child{background:url("images/44.jpg") no-repeat;}
+	section > ul li:nth-child(2) div{background-position:-175px 0px;}
+	section > ul li:nth-child(3) div{background-position:-350px 0px;}
+	section > ul li:nth-child(4) div{background-position:-525px 0px;}
+	section > nav{position:absolute;bottom:0px;right:20px;z-index:2;}
+	section > nav ul li{list-style:none;width:30px;height:30px;background:#ccff99;border-radius:15px;display:inline-block;text-align:center;line-height:30px;cursor:pointer;}
+	section > nav ul li:first-child{background:#ff66ff;}
+	
+	section > ul li div:first-child{left:0px;}
+  </style>
+ </head>
+ <body>
+
+	<section>
+		<ul>
+			<li><div></div><div></div><div></div><div></div></li>
+			<li><div></div><div></div><div></div><div></div></li>
+			<li><div></div><div></div><div></div><div></div></li>
+			<li><div></div><div></div><div></div><div></div></li>
+		</ul>
+		<nav>
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+		</nav>
+	</section>
+	
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+		var num=0;
+			function next()
+			{
+				num=(++num)%4;
+				$("section > ul li div:nth-child("+(num+1)+")").animate({zIndex:"1",left:"0px"},2000).siblings().css({zIndex:"0",left:"175px"});
+				$("section > nav ul li:nth-child("+(num+1)+")").css({background:"#ff66ff"}).siblings().css({background:"#ccff99"});
+
+			}
+		var inter=window.setInterval("next()",4000);
+		$("section > nav ul li").on("mousedown",function(e){
+			if(e.which==1)
+			{
+				window.clearInterval(inter);
+				var index=$(this).index();
+				$("section > ul li div:nth-child("+(index+1)+")").animate({zIndex:"1",left:"0px"},2000).siblings().css({zIndex:"0",left:"175px"});
+				$("section > nav ul li:nth-child("+(index+1)+")").css({background:"#ff66ff"}).siblings().css({background:"#ccff99"});
+				num=index;
+				inter=window.setInterval("next()",4000);
+			}
+		})
+	</script>
+		
+	
+ </body>
+</html>
